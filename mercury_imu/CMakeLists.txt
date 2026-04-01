@@ -10,6 +10,61 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(mercury_msgs REQUIRED)
+find_package(rclcpp_action REQUIRED)
+
+#include(vnproglib-1.2.0.0/cpp/CMakeLists.txt)
+add_subdirectory(vnproglib-1.2.0.0/cpp)
+
+#Grab vnproglib header files
+include_directories(vnproglib-1.2.0.0/cpp/include)
+include_directories(include)
+
+#Build executable
+add_executable(imu src/main.cpp)
+
+#Define a variable with all dependencies
+set(deps 
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  tf2_geometry_msgs
+  mercury_msgs
+  rclcpp_action
+)
+
+# Link deps
+ament_target_dependencies(imu ${deps})
+
+#Link vnproglib
+target_link_libraries(imu
+  libvncxx
+)
+
+#Install executables
+install(TARGETS imu
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+#Install vnproglib
+install(TARGETS libvncxx
+  DESTINATION share/${PROJECT_NAME}
+)
+
+#Install launch files
+install(DIRECTORY config launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
+
+
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

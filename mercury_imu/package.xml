@@ -4,7 +4,7 @@
   <name>mercury_imu</name>
   <version>0.0.0</version>
   <description>VN100 driver for the Mercury software stack </description>
-  <maintainer email="rosati.33@osu.edu">Ethan Rosati</maintainer>
+  <maintainer email="dorner.28@osu.edu">Dino Dorner</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
